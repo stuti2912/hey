@@ -1,0 +1,446 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<title>For Jai ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+:root{--bg:#ffe4e1;}
+body{
+  margin:0; font-family:'Segoe UI', sans-serif; background:var(--bg);
+  text-align:center; color:#b30059; transition:background 0.8s ease; overflow:hidden;
+}
+h1{margin-top:30px;}
+.subtitle{margin-bottom:25px;font-size:1.1rem;}
+.music-btn{
+  position:fixed; top:15px; right:15px; font-size:1.6rem; cursor:pointer; z-index:50;
+}
+.days{
+  display:flex; flex-wrap:wrap; justify-content:center; gap:25px;
+}
+.day{
+  width:120px; height:120px; border-radius:50%; background:white;
+  display:flex; flex-direction:column; justify-content:center; align-items:center;
+  font-size:2rem; cursor:pointer; box-shadow:0 10px 20px rgba(0,0,0,0.2);
+  transition:0.3s; position:relative;
+}
+.day span{font-size:0.8rem;}
+.day:hover{transform:scale(1.15);}
+.day.active{animation:pulse 1s infinite; box-shadow:0 0 25px rgba(255,0,100,0.8);}
+@keyframes pulse{0%,100%{transform:scale(1.1);}50%{transform:scale(1.25);}}
+
+.overlay{
+  display:none; position:fixed; inset:0; background:rgba(0,0,0,0.65); z-index:40;
+  display:flex; align-items:center; justify-content:center;
+}
+.box{
+  background:white; width:85%; max-width:400px; padding:20px; border-radius:28px;
+  position:relative; text-align:center; animation:zoomIn 0.6s ease;
+}
+@keyframes zoomIn{from{transform:scale(0.6);opacity:0;}to{transform:scale(1);opacity:1;}}
+.close{position:absolute; right:18px; top:12px; font-size:1.6rem; cursor:pointer;}
+
+.gif-image, .slideshow-image{
+  max-width:100%; border-radius:15px; margin-top:15px; display:block; margin-left:auto; margin-right:auto;
+}
+.slideshow-container{
+  background:white; width:70%; max-width:350px; padding:15px; border-radius:20px;
+  text-align:center; animation:zoomIn 0.6s ease;
+}
+.slideshow-text{
+  margin-top:10px; font-size:1.2rem; color:#b30059; word-wrap:break-word;
+}
+
+#start-page{
+  position:fixed; inset:0; background:#ffe4e1; display:flex;
+  align-items:center; justify-content:center; flex-direction:column; z-index:100;
+  overflow:hidden;
+  animation:fadeIn 1.2s ease;
+}
+#start-page h2{font-size:2rem; margin-bottom:20px;}
+#start-page button{
+  padding:12px 25px; font-size:1.2rem; border:none; border-radius:15px; cursor:pointer;
+  background:#ff6f91; color:white; box-shadow:0 5px 15px rgba(0,0,0,0.3);
+}
+
+@keyframes fadeIn{
+  from{opacity:0;} to{opacity:1;}
+}
+
+/* Floating hearts / sparkles animation */
+.floatSymbol{
+  position:absolute; font-size:18px; animation:floatUp 5s linear forwards;
+}
+@keyframes floatUp{
+  to{transform:translateY(-120vh) rotate(360deg); opacity:0;}
+}
+
+/* Falling symbols for Day popups */
+.fallSymbol{
+  position:fixed; top:-30px; font-size:22px; animation:fall 5s linear forwards;
+}
+@keyframes fall{to{transform:translateY(120vh) rotate(360deg);opacity:0;}}
+/* ✨ Cursor / Touch Sparkles */
+.cursor-sparkle{
+  position:fixed;
+  pointer-events:none;
+  z-index:999;
+  font-size:14px;
+  animation:sparkFade 1.2s ease-out forwards;
+}
+
+@keyframes sparkFade{
+  from{opacity:1; transform:scale(1);}
+  to{opacity:0; transform:scale(2) translateY(-20px);}
+}
+/* 🌙 GRAND ENDING */
+.grand-ending{
+  background:white;
+  width:85%;
+  max-width:420px;
+  padding:30px;
+  border-radius:28px;
+  text-align:center;
+  animation:zoomIn 0.8s ease;
+}
+
+.grand-ending h2{
+  font-size:1.9rem;
+  margin-bottom:15px;
+  text-shadow:0 0 12px pink;
+}
+
+.grand-ending p{
+  font-size:1.1rem;
+  line-height:1.8;
+  margin-bottom:15px;
+}
+
+.grand-ending .signature{
+  margin-top:20px;
+  font-style:italic;
+  font-size:1.1rem;
+}
+.day.locked{
+  filter: grayscale(100%);
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.day.locked::after{
+  content:"🔒";
+  position:absolute;
+  bottom:10px;
+  font-size:1.4rem;
+}
+@keyframes firework{
+  from{transform:translateY(0) scale(0.5);opacity:1;}
+  to{transform:translateY(-90vh) scale(1.8);opacity:0;}
+}
+
+</style>
+</head>
+<body>
+
+
+<h1>7 Days of Valentine ❤️</h1>
+<div class="subtitle">For my husband, <b>Jai</b></div>
+
+<div class="days">
+  <div class="day" data-day="1">🌹<span>Rose</span></div>
+  <div class="day" data-day="2">❤️<span>Propose</span></div>
+  <div class="day" data-day="3">🍫<span>Chocolate</span></div>
+  <div class="day" data-day="4">🧸<span>Teddy</span></div>
+  <div class="day" data-day="5">🤝<span>Promise</span></div>
+  <div class="day" data-day="6">🤗<span>Hug</span></div>
+  <div class="day" data-day="7">💍<span>Valentine</span></div>
+</div>
+
+<!-- Overlay for popups -->
+<div class="overlay" id="overlay">
+  <div class="box">
+    <span class="close" onclick="closeBox()">×</span>
+    <div id="content"></div>
+  </div>
+</div>
+
+<!-- Starting Page -->
+<div id="start-page">
+  <h2>Hey Jai… ❤️</h2>
+  <p>A special 7-day Valentine surprise is waiting for you</p>
+  <button onclick="startWebsite()">Open your gift 🎁</button>
+</div>
+
+<script>
+let slideshowInterval=null;
+
+// Backgrounds for each day
+const bgColors={1:"#ffd1dc",2:"#ff6f91",3:"#d4a373",4:"#ffe5ec",5:"#e8dff5",6:"#fbc4ab",7:"#fff0f6"};
+
+// Text + GIFs for Days 1-7
+const contentData={
+1:{text:"🌹 Jai, you are the rose that made my life bloom with love.", gif:"rose.gif", symbol:"🌸"},
+2:{text:"❤️ Jai, I still choose you. Every heartbeat.", gif:"propose.gif", symbol:"❤️"},
+3:{text:"🍫 Life with you is sweeter than any chocolate.", gif:"chocolate.gif", symbol:"🍫"},
+4:{text:"🧸 Whenever you miss me, remember my hugs are always with you.", gif:"teddy.gif", symbol:"🧸"},
+5:{text:"🤝 Jai, I promise to love you in every lifetime.", gif:"promise.gif", symbol:"💍"},
+6:{text:"🤗 This is a virtual hug… the real one is waiting.", gif:"hug.gif", symbol:"🤗"},
+7:{text:"💍 Jai, these are our memories ❤️", gif:"valentine.gif"}
+};
+/* 🔒 AUTO UNLOCK — Victoria, Canada */
+function getVictoriaDate(){
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "America/Vancouver",
+    year: "numeric",
+    month: "numeric",
+    day: "numeric"
+  }).formatToParts(new Date());
+
+  return {
+    month: Number(parts.find(p=>p.type==="month").value),
+    day: Number(parts.find(p=>p.type==="day").value)
+  };
+}
+
+function getUnlockedDay(){
+  const { month, day } = getVictoriaDate();
+  if(month !== 2) return 0;
+
+  if(day >= 7 && day <= 12) return day - 6; // Feb 7 → Day 1
+  if(day === 14) return 7;                 // Feb 14 → Valentine
+  return 0;
+}
+
+function applyLocks(){
+  const unlocked = getUnlockedDay();
+  document.querySelectorAll(".day").forEach(el=>{
+    const d = Number(el.dataset.day);
+    if(d > unlocked){
+      el.classList.add("locked");
+      el.onclick = null;
+    }
+  });
+}
+
+applyLocks();
+
+// Day 7 slideshow photos
+const valentinePhotos=[
+{src:"1.jpeg", text:"💌 Jai, you are my first thought every morning."},
+{src:"2.jpeg", text:"💌 Every moment with you is magical."},
+{src:"3.jpeg", text:"💌 I love your smile more than anything."},
+{src:"4.jpeg", text:"💌 You are my forever Valentine."},
+{src:"11.jpeg", text:"💌 With you, life feels complete."},
+{src:"6.jpeg", text:"💌 You make my heart skip beats."},
+{src:"7.jpeg", text:"💌 I fall for you more every day."},
+{src:"8.jpeg", text:"💌 You are my sweetest dream."},
+{src:"9.jpeg", text:"💌 I cherish every memory with you."},
+{src:"10.jpeg", text:"💌 Jai, I love you endlessly ❤️"}
+];
+
+// START PAGE: floating hearts
+function createFloatingHearts(){
+  for(let i=0;i<25;i++){
+    const h=document.createElement("div");
+    h.className="floatSymbol";
+    h.innerHTML="❤️";
+    h.style.left=Math.random()*100+"vw";
+    h.style.fontSize=(10+Math.random()*20)+"px";
+    document.getElementById("start-page").appendChild(h);
+    setTimeout(()=>h.remove(),5000);
+  }
+  setTimeout(createFloatingHearts,800);
+}
+createFloatingHearts();
+
+// START WEBSITE
+function startWebsite(){
+  document.getElementById("start-page").style.display="none";
+  playClick();
+}
+
+// DAY CLICKS
+document.querySelectorAll(".day").forEach(el=>{
+  el.onclick=()=>{
+    document.querySelectorAll(".day").forEach(d=>d.classList.remove("active"));
+    el.classList.add("active");
+    const day=Number(el.dataset.day);
+    document.body.style.setProperty("--bg",bgColors[day]);
+    playClick();
+    if(day===7) setTimeout(startValentineSlideshow,100);
+    else openDay(day);
+  };
+});
+
+// Open Days 1-6
+function openDay(day){
+  const data=contentData[day];
+  const contentDiv=document.getElementById("content");
+  contentDiv.innerHTML=`<p>${data.text}</p><img src="${data.gif}" class="gif-image">`;
+  document.getElementById("overlay").style.display="flex";
+  startFallingSymbols(data.symbol,30);
+}
+
+function startFallingSymbols(symbol,count){
+  for(let i=0;i<count;i++){
+    const e=document.createElement("div");
+    e.className="fallSymbol";
+    e.innerHTML=symbol;
+    e.style.left=Math.random()*100+"vw";
+    document.body.appendChild(e);
+    setTimeout(()=>e.remove(),5000);
+  }
+}
+
+// DAY 7: SMALL SLIDESHOW
+function startValentineSlideshow(){
+  const overlay=document.getElementById("overlay");
+  overlay.style.background="rgba(0,0,0,0.85)";
+  overlay.style.display="flex";
+  overlay.innerHTML=`<div class="slideshow-container" id="slideshow-box"></div>`;
+  const slideshowBox=document.getElementById("slideshow-box");
+  let i=0;
+
+  function showPhoto(){
+    slideshowBox.innerHTML=`
+      <img src="${valentinePhotos[i].src}" class="slideshow-image">
+      <div class="slideshow-text">${valentinePhotos[i].text}</div>`;
+    i=(i+1)%valentinePhotos.length;
+  }
+
+  showPhoto();
+  if(slideshowInterval) clearInterval(slideshowInterval);
+  slideshowInterval=setInterval(showPhoto,3000);
+setTimeout(()=>{
+  clearInterval(slideshowInterval);
+  showGrandEnding();
+}, valentinePhotos.length * 3000 + 2000);
+setTimeout(showFinalEnding, valentinePhotos.length * 3000 + 7000);
+  overlay.onclick=()=>{
+    clearInterval(slideshowInterval);
+    overlay.style.display="none";
+    overlay.innerHTML=`<div class="box"><span class="close" onclick="closeBox()">×</span><div id="content"></div></div>`;
+    overlay.style.background="rgba(0,0,0,0.65)";
+  };
+}
+
+// UTILITY FUNCTIONS
+function closeBox(){document.getElementById("overlay").style.display="none";}
+function toggleMusic(){const m=document.getElementById("bgMusic");m.paused?m.play():m.pause();}
+function playClick(){const c=document.getElementById("clickSound"); if(c) c.play();}
+
+/* ✨ Sparkle Effect (Desktop + Mobile) */
+const sparkleSymbols = ["✨","💖","🌸"];
+
+function createSparkle(x,y){
+  const s = document.createElement("div");
+  s.className = "cursor-sparkle";
+  s.innerHTML = sparkleSymbols[Math.floor(Math.random()*sparkleSymbols.length)];
+  s.style.left = x + "px";
+  s.style.top = y + "px";
+  document.body.appendChild(s);
+  setTimeout(()=>s.remove(),1200);
+}
+
+/* Desktop */
+document.addEventListener("mousemove", e=>{
+  if(Math.random() < 0.25){
+    createSparkle(e.clientX, e.clientY);
+  }
+});
+
+/* Mobile */
+document.addEventListener("touchmove", e=>{
+  const t = e.touches[0];
+  if(Math.random() < 0.4){
+    createSparkle(t.clientX, t.clientY);
+  }
+});
+function showGrandEnding(){
+  const overlay = document.getElementById("overlay");
+  overlay.style.display = "flex";
+  overlay.style.background = "rgba(0,0,0,0.85)";
+
+  overlay.innerHTML = `
+    <div class="grand-ending">
+      <h2>Jai ❤️</h2>
+
+      <p><b>A Promise</b></p>
+      <p>
+        I promise to stand by you in every season of life —  
+        in smiles and silence,  
+        in dreams and doubts,  
+        always choosing you,  
+        every single day.
+      </p>
+
+      <p><b>A Future Dream</b></p>
+      <p>
+        I dream of growing old with you,  
+        building a life full of warmth, laughter, and love,  
+        where no matter where life takes us,  
+        our hearts always find their way back to each other.
+      </p>
+
+      <div class="signature">
+        Forever yours,<br>
+        ❤️ Stuti
+      </div>
+    </div>
+  `;
+}
+/* 🎆 Fireworks on Feb 14 (Victoria) */
+function isFeb14Victoria(){
+  const { month, day } = getVictoriaDate();
+  return month === 2 && day === 14;
+}
+
+function startFireworks(){
+  if(!isFeb14Victoria()) return;
+
+  setInterval(()=>{
+    for(let i=0;i<10;i++){
+      const f = document.createElement("div");
+      f.innerHTML="🎆";
+      f.style.position="fixed";
+      f.style.left=Math.random()*100+"vw";
+      f.style.top="100vh";
+      f.style.fontSize="28px";
+      f.style.zIndex=999;
+      f.style.animation="firework 2.5s ease-out forwards";
+      document.body.appendChild(f);
+      setTimeout(()=>f.remove(),2500);
+    }
+  },2000);
+}
+
+startFireworks();
+function showFinalEnding(){
+  const overlay = document.getElementById("overlay");
+  overlay.style.display = "flex";
+  overlay.style.background = "rgba(0,0,0,0.9)";
+  overlay.innerHTML = `
+    <div style="
+      background:white;
+      padding:30px;
+      max-width:420px;
+      border-radius:30px;
+      animation:zoomIn 0.8s ease;
+      text-align:center;
+      box-shadow:0 0 30px rgba(255,105,180,0.6);
+    ">
+      <h2 style="color:#b30059;">💍 Jai…</h2>
+      <p style="font-size:1.2rem;">
+        I promise to stand by you through every season of life.<br><br>
+        I dream of a future filled with love, laughter, growth,
+        and quiet moments that feel like home.<br><br>
+        <b>Will you grow old with me?</b> ❤️
+      </p>
+    </div>
+  `;
+}
+
+
+</script>
+
+</body>
+</html>
